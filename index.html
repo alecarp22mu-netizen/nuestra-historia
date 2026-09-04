@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestra App de Pareja</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-pink-50 min-h-screen text-gray-800 pb-20">
+
+  <!-- PANTALLA 1: LOGIN Y REGISTRO -->
+  <div id="auth-screen" class="max-w-md mx-auto p-6 mt-10 bg-white rounded-2xl shadow-xl border border-pink-100">
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-extrabold text-pink-600 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-heart animate-bounce"></i> Nuestro Espacio
+      </h1>
+      <p class="text-sm text-gray-500 mt-1">Inicia sesión o regístrate para comenzar</p>
+    </div>
+
+    <form id="auth-form" class="space-y-4">
+      <div>
+        <label class="block text-xs font-bold text-gray-600 mb-1">CORREO ELECTRÓNICO</label>
+        <input type="email" id="auth-email" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="tu@email.com">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-gray-600 mb-1">CONTRASEÑA</label>
+        <input type="password" id="auth-password" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:outline-none" placeholder="••••••••">
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="button" id="btn-login" class="flex-1 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl shadow-md transition">Iniciar Sesión</button>
+        <button type="button" id="btn-register" class="flex-1 py-3 bg-pink-100 hover:bg-pink-200 text-pink-600 font-bold rounded-xl transition">Registrarse</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- PANTALLA 2: VINCULACIÓN DE CÓDIGO -->
+  <div id="pair-screen" class="hidden max-w-md mx-auto p-6 mt-10 bg-white rounded-2xl shadow-xl border border-pink-100 text-center">
+    <h2 class="text-2xl font-bold text-pink-600 mb-2">Vinculación de Cuenta</h2>
+    <p class="text-sm text-gray-500 mb-6">Comparte tu código o ingresa el de tu pareja para conectar sus espacios.</p>
+
+    <div class="bg-pink-50 p-4 rounded-xl mb-6 border border-pink-200">
+      <p class="text-xs text-gray-500 mb-1">Tu código de vinculación:</p>
+      <div id="my-pairing-code" class="text-3xl font-black text-pink-600 tracking-wider">82NEST</div>
+      <p class="text-xs text-gray-400 mt-1">Compártelo con tu pareja</p>
+    </div>
+
+    <div class="space-y-3">
+      <p class="text-xs font-bold text-gray-600">Ingresa el código de tu pareja:</p>
+      <input type="text" id="partner-code-input" class="w-full p-3 border border-gray-200 rounded-xl text-center font-bold tracking-widest focus:ring-2 focus:ring-pink-400 focus:outline-none uppercase" placeholder="EJ: AB12CD">
+      <button id="btn-link-partner" class="w-full py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl shadow-md transition">Vincular</button>
+    </div>
+  </div>
+
+  <!-- PANTALLA 3: APLICACIÓN PRINCIPAL -->
+  <div id="main-app" class="hidden max-w-md mx-auto p-4">
+    <!-- Navbar Header -->
+    <header class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm mb-4 border border-pink-100">
+      <h1 class="text-xl font-bold text-pink-600 flex items-center gap-2">
+        <i class="fa-solid fa-heart"></i> Nuestro Espacio
+      </h1>
+      <button id="btn-logout" class="text-xs text-gray-500 hover:text-pink-600 flex items-center gap-1 font-semibold">
+        <i class="fa-solid fa-right-from-bracket"></i> Salir
+      </button>
+    </header>
+
+    <!-- Tab 1: Recuerdos (Fotos y Muro) -->
+    <main id="tab-memories" class="space-y-4">
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-pink-100">
+        <h3 class="font-bold text-gray-700 mb-3 text-sm">Agregar Nuevo Recuerdo</h3>
+        <form id="memory-form" class="space-y-3">
+          <input type="text" id="memory-title" placeholder="Título del recuerdo..." required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pink-400 focus:outline-none">
+          <input type="url" id="memory-image" placeholder="URL de la imagen/foto..." required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pink-400 focus:outline-none">
+          <button type="submit" class="w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white font-bold text-sm rounded-xl transition shadow">Guardar Recuerdo</button>
+        </form>
+      </div>
+
+      <div id="memories-feed" class="space-y-4">
+        <!-- Tarjetas dinámicas cargadas por JS -->
+      </div>
+    </main>
+
+    <!-- Tab 2: Notas y Datos -->
+    <main id="tab-notes" class="hidden space-y-4">
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-pink-100">
+        <h3 class="font-bold text-gray-700 mb-3 text-sm">Agregar Nota Compartida</h3>
+        <form id="note-form" class="space-y-3">
+          <textarea id="note-content" rows="3" placeholder="Escribe algo bonito o una nota..." required class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"></textarea>
+          <button type="submit" class="w-full py-2.5 bg-pink-500 hover:bg-pink-600 text-white font-bold text-sm rounded-xl transition shadow">Publicar Nota</button>
+        </form>
+      </div>
+
+      <div id="notes-feed" class="space-y-3">
+        <!-- Notas dinámicas cargadas por JS -->
+      </div>
+    </main>
+
+    <!-- Navegación Inferior -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-pink-100 flex justify-around p-2 shadow-lg z-50 rounded-t-2xl">
+      <button id="nav-btn-memories" class="flex flex-col items-center gap-1 text-pink-600 font-bold text-xs py-1 px-4">
+        <i class="fa-solid fa-image text-lg"></i>
+        Recuerdos
+      </button>
+      <button id="nav-btn-notes" class="flex flex-col items-center gap-1 text-gray-400 hover:text-pink-600 font-bold text-xs py-1 px-4">
+        <i class="fa-solid fa-list-check text-lg"></i>
+        Notas y Datos
+      </button>
+    </nav>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
