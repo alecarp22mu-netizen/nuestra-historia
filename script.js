@@ -1,13 +1,15 @@
 // Configuración de Firebase
-const firebaseConfig = {
-  apiKey: "TU_API_KEY_AQUI",
-  authDomain: "TU_PROJECT_ID.firebaseapp.com",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_PROJECT_ID.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId: "TU_APP_ID"
-};
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyClAWKtIHrzDNcnI7dOndm31Od2cHCnhRk",
+  authDomain: "nuestra-historia-9ef9d.firebaseapp.com",
+  projectId: "nuestra-historia-9ef9d",
+  storageBucket: "nuestra-historia-9ef9d.firebasestorage.app",
+  messagingSenderId: "304464409264",
+  appId: "1:304464409264:web:fe8fd0cd7c47a159438175",
+  measurementId: "G-YQB3HGDDXX"
+};
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
